@@ -1,0 +1,26 @@
+{
+  "name": "paginator-for-mongoose",
+  "version": "1.0.0",
+  "description": "A simple pagination libray for mongoose",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mongoose",
+    "pagination",
+    "paginator",
+    "paginate",
+    "aggregate",
+    "koa"
+  ],
+  "repository": "artisangang/paginator-for-mongoose",
+  "author": {
+    "name": "Harcharan Singh",
+    "email": "artisangang@gmail.com"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.5.4"
+  }
+}
