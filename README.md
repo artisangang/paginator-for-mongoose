@@ -44,8 +44,6 @@ const results = await paginateAggregate(Model.aggregate([{ $match: {status: 'act
 
 ```
 
-Plugin currently only supports koa js.
-
 ```javascript
 
 const {enablePlugin} = require('paginator-for-mongoose');

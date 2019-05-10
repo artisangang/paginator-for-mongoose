@@ -33,3 +33,4 @@ function Schema(schema, options) {
 
 }
 
+module.exports = Schema;
