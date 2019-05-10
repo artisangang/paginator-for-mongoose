@@ -45,11 +45,35 @@ const results = await paginateAggregate(Model.aggregate([{ $match: {status: 'act
 ```
 
 ```javascript
-
-const {enablePlugin} = require('paginator-for-mongoose');
+const mongoose = require('mongoose');
+const {enablePlugin, plugin} = require('paginator-for-mongoose');
 
 // call this method to use schema plugin
-enablePlugin();
+enablePlugin(mongoose);
+
+// or you can enable like mongoose.plugin(plugin);
+
+// example usage in koajs controller
+
+let page = 1;
+
+// limit is optional
+const limit = 15;
+
+const results = await Model.aggregate([{ $match: {status: 'active'} }]).paginateAggregate(ctx);
+
+// or for simple query
+const results = await Model.find({status: 'active'}).paginate(ctx);
+
+```
+
+Using plugin on specific models
+```javascript
+const mongoose = require('mongoose');
+const {plugin} = require('paginator-for-mongoose');
+
+
+Model.plugin(plugin);
 
 // example usage in koajs controller
 
