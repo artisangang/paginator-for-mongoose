@@ -44,6 +44,8 @@ const results = await paginateAggregate(Model.aggregate([{ $match: {status: 'act
 
 ```
 
+Usage with Koa
+
 ```javascript
 const mongoose = require('mongoose');
 const {enablePlugin, plugin} = require('paginator-for-mongoose');
@@ -57,8 +59,8 @@ enablePlugin(mongoose);
 
 let page = 1;
 
-// limit is optional
-const limit = 15;
+// limit is optional, by default 15 items per page
+// to change limit set ctx.PER_PAGE = 50, this will set 50 items per page
 
 const results = await Model.aggregate([{ $match: {status: 'active'} }]).paginateAggregate(ctx);
 

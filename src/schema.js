@@ -21,13 +21,13 @@ function Schema(schema, options) {
 
     schema.query.paginate = function (ctx) {
 
-        return paginate(this, ctx.query.page, 15);
+        return paginate(this, ctx.query.page, ctx.PER_PAGE || 15);
 
     };
 
     schema.query.paginateAggregate = function (ctx) {
 
-        return paginateAggregate(this, ctx.query.page, 15);
+        return paginateAggregate(this, ctx.query.page, ctx.PER_PAGE || 15);
 
     };
 
