@@ -1,5 +1,7 @@
 const { paginate, paginateAggregate } = require('./paginate');
 
+const Aggregate = require('mongoose/lib/aggregate');
+
 function Schema(schema, options) {
 
     //mongoose.Schema.apply(this, arguments);
@@ -25,7 +27,7 @@ function Schema(schema, options) {
 
     };
 
-    schema.query.paginateAggregate = function (ctx) {
+    Aggregate.prototype.paginateAggregate = function (ctx) {
 
         return paginateAggregate(this, ctx.query.page, ctx.PER_PAGE || 15);
 
