@@ -90,3 +90,39 @@ const results = await Model.aggregate([{ $match: {status: 'active'} }]).paginate
 const results = await Model.find({status: 'active'}).paginate(ctx);
 
 ```
+
+## Ver 3
+
+Paginate Using ID for large collections
+
+```javascript
+ paginateById(User.find({ role: 'user' }))
+        .then((docs) => {
+          console.log(docs);
+        })
+        .catch((e) => console.error(e));
+```
+
+To paginate, pass last document id as second parameter. Third parameter is limit (Default: 50).
+
+```javascript
+// pass last document id as second parameter
+ paginateById(User.find({ role: 'user' }), '5e25a641beac1d5978ad2c14')
+        .then((docs) => {
+          console.timeEnd('Pagi');
+          console.log(docs);
+        })
+        .catch((e) => console.error(e));
+```
+
+Using aggregate query. Second argument is id of last docuemnt and is optional for first page.
+
+```javascript
+ paginateAggregateById(User.aggregate([{ $match: { role: 'user' } }]), '5e25a641beac1d5978ad2c14')
+        .then((docs) => {
+          console.log(docs);
+        })
+        .catch((e) => console.error(e));
+```
+
+Note: Pagination using id does not returns documents count because count is slow on large collections.

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-function paginate(model, page = 1, limit = 15) {
+function paginate(model, page = 1, limit = 50) {
     //@ts-ignore
     page = Math.max(0, parseInt(page) - 1);
     //@ts-ignore
@@ -33,7 +33,70 @@ function paginate(model, page = 1, limit = 15) {
     });
 }
 
-function paginateAggregate(aggregate, page = 1, limit = 15) {
+function paginateById(model, id = null, limit = 50) {
+    //@ts-ignore
+    limit = parseInt(limit);
+    // clone query
+    let query = model.toConstructor();
+
+    const conditions = query()._conditions;
+
+    if (id) {
+        conditions._id = { $gt: mongoose.Types.ObjectId(id) };
+    }
+    // return promise
+    return new Promise((resolve, reject) => {
+        query(conditions).limit(limit + 1)
+            .then((docs) => {
+                let hasMore = false;
+                if (docs.length > limit) {
+                    hasMore = true;
+                }
+                docs.pop();
+                resolve({
+                    data: docs,
+                    hasMore,
+                    limit,
+                })
+            })
+            .catch(reject)
+    });
+}
+
+function paginateAggregateById(aggregate, id = null, limit = 50) {
+    //@ts-ignore
+    limit = parseInt(limit);
+
+    if (id) {
+        aggregate._pipeline.unshift(
+            {
+                $match: {
+                    _id: { $gt: mongoose.Types.ObjectId(id) },
+                },
+            }
+        );
+    }
+
+    let query = mongoose.model(aggregate._model.modelName).aggregate(aggregate._pipeline);
+
+    // return promise
+    return new Promise((resolve, reject) => {
+        query.limit(limit + 1).then(function (docs) {
+            let hasMore = false;
+            if (docs.length > limit) {
+                hasMore = true;
+            }
+            docs.pop();
+            resolve({
+                data: docs,
+                hasMore,
+                limit,
+            })
+        }).catch(reject);
+    });
+}
+
+function paginateAggregate(aggregate, page = 1, limit = 50) {
     //@ts-ignore
     page = Math.max(0, parseInt(page) - 1);
 
@@ -78,4 +141,4 @@ function paginateAggregate(aggregate, page = 1, limit = 15) {
     });
 }
 
-module.exports = { paginate, paginateAggregate };
+module.exports = { paginate, paginateAggregate, paginateById, paginateAggregateById };

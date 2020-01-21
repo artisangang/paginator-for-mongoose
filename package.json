@@ -1,6 +1,6 @@
 {
   "name": "paginator-for-mongoose",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A simple pagination libray for mongoose",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,6 @@
   },
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.5.7"
+    "mongoose": "^5.8.9"
   }
 }

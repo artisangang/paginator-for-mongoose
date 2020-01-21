@@ -1,6 +1,6 @@
 const plugin = require('./src/schema');
 
-const { paginate, paginateAggregate } = require('./src/paginate');
+const { paginate, paginateAggregate, paginateById, paginateAggregateById } = require('./src/paginate');
 
 const enablePlugin = (mongoose) => {
 
@@ -10,4 +10,4 @@ const enablePlugin = (mongoose) => {
 
 module.exports.plugin = plugin;
 
-module.exports = { paginate, paginateAggregate, plugin, enablePlugin };
+module.exports = { paginate, paginateAggregate, plugin, enablePlugin, paginateById, paginateAggregateById };
