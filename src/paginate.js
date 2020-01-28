@@ -53,10 +53,13 @@ function paginateById(model, id = null, limit = 50) {
                     hasMore = true;
                 }
                 docs.pop();
+                const count = docs.length;
+                const lastId = docs[count - 1]._id;
                 resolve({
                     data: docs,
                     hasMore,
                     limit,
+                    lastId,
                 })
             })
             .catch(reject)
@@ -87,10 +90,13 @@ function paginateAggregateById(aggregate, id = null, limit = 50) {
                 hasMore = true;
             }
             docs.pop();
+            const count = docs.length;
+            const lastId = docs[count - 1]._id;
             resolve({
                 data: docs,
                 hasMore,
                 limit,
+                lastId,
             })
         }).catch(reject);
     });
